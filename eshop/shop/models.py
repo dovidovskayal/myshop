@@ -59,10 +59,27 @@ class SubCategory(models.Model):
         ordering = ('is_published', 'name')
 
 
+class Brand(models.Model):
+    name = models.CharField(max_length=24,
+                            verbose_name='Бренд',
+                            help_text='Макс. 24 символа')
+    is_published = models.BooleanField(default=False,
+                                       verbose_name='публикация')
+
+    def __str__(self):
+        return self.name
+
+    class Meta:
+        db_table = 'shop_brands'
+        verbose_name = 'бренд'
+        verbose_name_plural = 'бренды'
+        ordering = ('name', 'is_published')
+
+
 class Product(models.Model):
-    title = models.CharField(max_length=24,
+    title = models.CharField(max_length=48,
                              verbose_name='название товара',
-                             help_text='Макс. 24 символа',
+                             help_text='Макс. 48 символа',
                              null=True,
                              blank=True
 
@@ -100,7 +117,7 @@ class Product(models.Model):
                              help_text='Макс. 140 символов'
                              )
     brand = models.ForeignKey('Brand',
-                              default='нет бренда',
+                              on_delete=models.CASCADE,
                               verbose_name='бренд',
                               help_text='Макс. 16 символов')
     is_published = models.BooleanField(default=False,
@@ -116,7 +133,7 @@ class Product(models.Model):
         ordering = ('price', 'title', 'article')
 
 
-class Comments(models.Model):
+class Comment(models.Model):
     user = models.ForeignKey(User,
                              on_delete=models.DO_NOTHING,
                              verbose_name='пользователь')
@@ -129,7 +146,7 @@ class Comments(models.Model):
                                )
     date_created = models.DateTimeField(default=datetime.now,
                                         blank=True,
-                                        verbose_name='Дата')
+                                        verbose_name='Дата создания')
 
     def __str__(self):
         return self.user
@@ -141,11 +158,4 @@ class Comments(models.Model):
         ordering = ('date_created', 'user', 'product')
 
 
-class Brand(models.Model):
-    name = models.CharField(max_length=24,
-                            default='нет бренда',
-                            verbose_name='Бренд',
-                            help_text='Макс. 24 символа')
-    products = models.ForeignKey('Product',
-                                 verbose_name='Продукт бренда'
-                                 )
+
