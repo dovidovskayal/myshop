@@ -1,3 +1,6 @@
+from datetime import datetime
+
+from django.contrib.auth.models import User
 from django.db import models
 
 
@@ -8,12 +11,6 @@ class Category(models.Model):
     name = models.CharField(max_length=24,
                             verbose_name='название категории',
                             help_text='Макс. 24 символа')
-    # parent = models.ForeignKey(
-    #     'Category',
-    #     on_delete=models.CASCADE,
-    #     blank=True,
-    #     null=True,
-    #     verbose_name='род. категория')
     descr = models.CharField(max_length=140,
                              blank=True,
                              null=True,
@@ -102,6 +99,10 @@ class Product(models.Model):
                              verbose_name='описание',
                              help_text='Макс. 140 символов'
                              )
+    brand = models.ForeignKey('Brand',
+                              default='нет бренда',
+                              verbose_name='бренд',
+                              help_text='Макс. 16 символов')
     is_published = models.BooleanField(default=False,
                                        verbose_name='публикация')
 
@@ -113,3 +114,38 @@ class Product(models.Model):
         verbose_name = 'товар'
         verbose_name_plural = 'товары'
         ordering = ('price', 'title', 'article')
+
+
+class Comments(models.Model):
+    user = models.ForeignKey(User,
+                             on_delete=models.DO_NOTHING,
+                             verbose_name='пользователь')
+    product = models.ForeignKey('Product',
+                                on_delete=models.DO_NOTHING,
+                                verbose_name='товар')
+    comment = models.CharField(max_length=1024,
+                               verbose_name='комментарий',
+                               help_text='Макс. 1024 символов'
+                               )
+    date_created = models.DateTimeField(default=datetime.now,
+                                        blank=True,
+                                        verbose_name='Дата')
+
+    def __str__(self):
+        return self.user
+
+    class Meta:
+        db_table = 'shop_comments'
+        verbose_name = 'комментарий'
+        verbose_name_plural = 'комментарии'
+        ordering = ('date_created', 'user', 'product')
+
+
+class Brand(models.Model):
+    name = models.CharField(max_length=24,
+                            default='нет бренда',
+                            verbose_name='Бренд',
+                            help_text='Макс. 24 символа')
+    products = models.ForeignKey('Product',
+                                 verbose_name='Продукт бренда'
+                                 )
