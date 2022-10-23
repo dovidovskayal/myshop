@@ -1,4 +1,4 @@
-from django.forms import ModelForm, EmailInput
+from django.forms import ModelForm, EmailInput, TextInput
 from .models import NewsLetter
 
 
@@ -7,7 +7,7 @@ class NewsLetterForm(ModelForm):
         model = NewsLetter
         fields = ('email',)
         widgets = {
-            'email': EmailInput(
+            'email': TextInput(
                 attrs={
                     'class': 'form-control',
                     'placeholder': 'enter your email'
