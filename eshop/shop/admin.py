@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Category, SubCategory, Product, Comment, Brand
+from .models import Category, SubCategory, Product, Comment, Brand, Order, OrderItem, Status
 
 
 # Register your models here.
@@ -71,4 +71,28 @@ class BrandAdmin(admin.ModelAdmin):
     list_display = ('name', 'is_published')
     list_filter = ('name', 'is_published')
     list_max_show_all = 10
+    inlines = (ProductTabularInline,)
 
+
+@admin.register(Order)
+class OrderAdmin(admin.ModelAdmin):
+    empty_value_display = 'N/a'
+    list_display = ('user', 'date_created')
+    list_filter = ('user', 'date_created')
+    list_max_show_all = 10
+
+
+@admin.register(OrderItem)
+class OrderItemAdmin(admin.ModelAdmin):
+    empty_value_display = 'N/a'
+    list_display = ('order', )
+    list_filter = ('order', 'product')
+    list_max_show_all = 10
+
+
+@admin.register(Status)
+class StatusAdmin(admin.ModelAdmin):
+    empty_value_display = 'N/a'
+    list_display = ('is_paid',)
+    list_filter = ('is_paid', )
+    list_max_show_all = 10

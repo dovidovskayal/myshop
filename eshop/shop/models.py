@@ -159,3 +159,62 @@ class Comment(models.Model):
 
 
 
+class Order(models.Model):
+    user = models.ForeignKey(User,
+                             verbose_name='пользователь',
+                             on_delete=models.DO_NOTHING)
+    # status = models.OneToOneField('Status',
+    #                            verbose_name='статус заказа',
+    #                            on_delete=models.DO_NOTHING
+    #                            )
+    date_created = models.DateTimeField(default=datetime.now,
+                                        blank=True,
+                                        verbose_name='Дата создания'
+                                        )
+
+
+    def __str__(self):
+        return self.user
+
+    class Meta:
+        db_table = 'shop_orders'
+        verbose_name = 'заказ'
+        verbose_name_plural = 'заказы'
+        ordering = ('date_created', 'user', 'status')
+
+
+class OrderItem(models.Model):
+    order = models.ForeignKey('Order',
+                              verbose_name='заказ',
+                              on_delete=models.DO_NOTHING
+                             )
+    while True:
+        product = models.ForeignKey('Product',
+                                    verbose_name='продукты в заказе',
+                                    on_delete=models.DO_NOTHING
+                                    )
+
+    class Meta:
+        db_table = 'shop_order_items'
+        verbose_name = 'содержание заказа'
+        verbose_name_plural = 'содержание заказов'
+        ordering = ('order', 'product')
+
+
+
+class Status(models.Model):
+    order = models.ForeignKey('Order',
+                              verbose_name='номер заказа',
+                              on_delete=models.CASCADE
+                              )
+    is_paid = models.BooleanField(default=False,
+                                  verbose_name='статус оплаты'
+                                  )
+
+    class Meta:
+        db_table = 'shop_statuses'
+        verbose_name = 'статус заказа'
+        verbose_name_plural = 'статусы заказов'
+        ordering = ('is_paid',)
+
+
