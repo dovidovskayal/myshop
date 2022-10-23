@@ -158,20 +158,18 @@ class Comment(models.Model):
         ordering = ('date_created', 'user', 'product')
 
 
-
 class Order(models.Model):
     user = models.ForeignKey(User,
                              verbose_name='пользователь',
                              on_delete=models.DO_NOTHING)
-    # status = models.OneToOneField('Status',
-    #                            verbose_name='статус заказа',
-    #                            on_delete=models.DO_NOTHING
-    #                            )
+    # order_status = models.OneToOneField('Status',
+    #                               verbose_name='статус заказа',
+    #                               on_delete=models.DO_NOTHING
+    #                               )
     date_created = models.DateTimeField(default=datetime.now,
                                         blank=True,
                                         verbose_name='Дата создания'
                                         )
-
 
     def __str__(self):
         return self.user
@@ -180,19 +178,18 @@ class Order(models.Model):
         db_table = 'shop_orders'
         verbose_name = 'заказ'
         verbose_name_plural = 'заказы'
-        ordering = ('date_created', 'user', 'status')
+        ordering = ('date_created', 'user')
 
 
 class OrderItem(models.Model):
     order = models.ForeignKey('Order',
                               verbose_name='заказ',
                               on_delete=models.DO_NOTHING
-                             )
-    while True:
-        product = models.ForeignKey('Product',
-                                    verbose_name='продукты в заказе',
-                                    on_delete=models.DO_NOTHING
-                                    )
+                              )
+    product = models.ForeignKey('Product',
+                                verbose_name='продукты в заказе',
+                                on_delete=models.DO_NOTHING
+                                )
 
     class Meta:
         db_table = 'shop_order_items'
@@ -201,20 +198,37 @@ class OrderItem(models.Model):
         ordering = ('order', 'product')
 
 
+class NewsLetter(models.Model):
+    email = models.CharField(max_length=48,
+                             verbose_name='почта для новостей',
+                             help_text='Макс. 48 символов'
+                             )
+    user = models.ForeignKey(User,
+                             verbose_name='пользователь',
+                             on_delete=models.DO_NOTHING
+                             )
 
-class Status(models.Model):
-    order = models.ForeignKey('Order',
-                              verbose_name='номер заказа',
-                              on_delete=models.CASCADE
-                              )
-    is_paid = models.BooleanField(default=False,
-                                  verbose_name='статус оплаты'
-                                  )
+    def __str__(self):
+        return self.user
+
 
     class Meta:
-        db_table = 'shop_statuses'
-        verbose_name = 'статус заказа'
-        verbose_name_plural = 'статусы заказов'
-        ordering = ('is_paid',)
+        db_table = 'shop_news_letters'
+        verbose_name = 'подписка на новости'
+        verbose_name_plural = 'подписки на новости'
+        ordering = ('email', 'user')
 
-
+# class Status(models.Model):
+#     order = models.ForeignKey('Order',
+#                               verbose_name='номер заказа',
+#                               on_delete=models.CASCADE
+#                               )
+#     is_paid = models.BooleanField(default=False,
+#                                   verbose_name='статус оплаты'
+#                                   )
+#
+#     class Meta:
+#         db_table = 'shop_statuses'
+#         verbose_name = 'статус заказа'
+#         verbose_name_plural = 'статусы заказов'
+#         ordering = ('is_paid',)

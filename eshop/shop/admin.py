@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Category, SubCategory, Product, Comment, Brand, Order, OrderItem, Status
+from .models import Category, SubCategory, Product, Comment, Brand, Order, OrderItem, NewsLetter
 
 
 # Register your models here.
@@ -90,9 +90,17 @@ class OrderItemAdmin(admin.ModelAdmin):
     list_max_show_all = 10
 
 
-@admin.register(Status)
-class StatusAdmin(admin.ModelAdmin):
-    empty_value_display = 'N/a'
-    list_display = ('is_paid',)
-    list_filter = ('is_paid', )
-    list_max_show_all = 10
+
+@admin.register(NewsLetter)
+class NewsLetter(admin.ModelAdmin):
+    list_display = ('email', 'user')
+    list_filter = ('email', 'user')
+
+
+
+# @admin.register(Status)
+# class StatusAdmin(admin.ModelAdmin):
+#     empty_value_display = 'N/a'
+#     list_display = ('is_paid',)
+#     list_filter = ('is_paid', )
+#     list_max_show_all = 10
