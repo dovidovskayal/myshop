@@ -33,3 +33,9 @@ def index(request: HttpRequest):
                       'news_letter_form': form,
                       'news_letter_error': error
                   })
+
+
+
+def about(request: HttpRequest):
+
+    return render(request, 'shop/about_us.html')
