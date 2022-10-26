@@ -203,20 +203,16 @@ class NewsLetter(models.Model):
                              verbose_name='почта для новостей',
                              help_text='Макс. 48 символов'
                              )
-    user = models.ForeignKey(User,
-                             verbose_name='пользователь',
-                             on_delete=models.DO_NOTHING
-                             )
 
     def __str__(self):
-        return self.user
+        return self.email
 
 
     class Meta:
         db_table = 'shop_news_letters'
         verbose_name = 'подписка на новости'
         verbose_name_plural = 'подписки на новости'
-        ordering = ('email', 'user')
+        ordering = ('email',)
 
 # class Status(models.Model):
 #     order = models.ForeignKey('Order',

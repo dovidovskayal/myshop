@@ -7,7 +7,7 @@ class NewsLetterForm(ModelForm):
         model = NewsLetter
         fields = ('email',)
         widgets = {
-            'email': TextInput(
+            'email': EmailInput(
                 attrs={
                     'class': 'form-control',
                     'placeholder': 'enter your email'

@@ -93,8 +93,8 @@ class OrderItemAdmin(admin.ModelAdmin):
 
 @admin.register(NewsLetter)
 class NewsLetter(admin.ModelAdmin):
-    list_display = ('email', 'user')
-    list_filter = ('email', 'user')
+    list_display = ('email',)
+    list_filter = ('email',)
 
 
 
