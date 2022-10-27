@@ -65,6 +65,13 @@ class Brand(models.Model):
                             help_text='Макс. 24 символа')
     is_published = models.BooleanField(default=False,
                                        verbose_name='публикация')
+    image = models.ImageField(
+        upload_to='brands',
+        verbose_name='картинка брэнда',
+        null=True,
+        blank=True
+    )
+
 
     def __str__(self):
         return self.name

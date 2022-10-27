@@ -3,7 +3,7 @@ from django.shortcuts import render
 
 # Create your views here.
 
-from .models import Category, Product
+from .models import Category, Product, Brand
 from .forms import NewsLetterForm
 from django.shortcuts import render, get_object_or_404
 
@@ -37,5 +37,9 @@ def index(request: HttpRequest):
 
 
 def about(request: HttpRequest):
+    brands = Brand.objects.all().order_by('name')
 
-    return render(request, 'shop/about_us.html')
+    return render(request,
+                  'shop/about_us.html',
+                  {'brands': brands}
+                  )
