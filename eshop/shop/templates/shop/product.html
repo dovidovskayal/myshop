@@ -1,0 +1,21 @@
+{% extends "shop/base.html" %}
+{% load static %}
+
+{% block title %}Товары{% endblock %}
+
+
+{% block content %}
+
+
+{% block productcategory%}
+{% include 'shop/product_category_area.html' %}
+{% endblock %}
+
+{% block product%}
+{% include 'shop/product_area.html' %}
+{% endblock %}
+
+
+{% endblock %}
+
+

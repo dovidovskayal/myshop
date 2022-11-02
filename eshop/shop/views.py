@@ -43,3 +43,13 @@ def about(request: HttpRequest):
                   'shop/about_us.html',
                   {'brands': brands}
                   )
+
+
+
+def product(request: HttpRequest):
+    products = Product.objects.all().order_by('title')
+
+    return render(request,
+                  'shop/product.html',
+                  {'products': products}
+                  )
