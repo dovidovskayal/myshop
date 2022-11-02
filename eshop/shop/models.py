@@ -67,7 +67,7 @@ class Brand(models.Model):
                                        verbose_name='публикация')
     image = models.ImageField(
         upload_to='brands',
-        verbose_name='картинка брэнда',
+        verbose_name='картинка бренда',
         null=True,
         blank=True
     )
@@ -129,6 +129,13 @@ class Product(models.Model):
                               help_text='Макс. 16 символов')
     is_published = models.BooleanField(default=False,
                                        verbose_name='публикация')
+    image = models.ImageField(
+        upload_to='products',
+        verbose_name='картинка продукта',
+        null=True,
+        blank=True,
+        default='images/shop/2.webp'
+    )
 
     def __str__(self):
         return self.title

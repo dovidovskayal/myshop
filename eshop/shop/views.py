@@ -48,8 +48,10 @@ def about(request: HttpRequest):
 
 def product(request: HttpRequest):
     products = Product.objects.all().order_by('title')
+    categories = Category.objects.all().order_by('name')
 
     return render(request,
                   'shop/product.html',
-                  {'products': products}
+                  {'products': products,
+                   'categories': categories}
                   )

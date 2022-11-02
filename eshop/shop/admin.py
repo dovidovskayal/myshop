@@ -46,7 +46,7 @@ class ProductAdmin(admin.ModelAdmin):
          }
          ),
         ('Дополнительные настройки',
-         {'fields': ('is_published', 'descr', 'count',
+         {'fields': ('is_published', 'descr', 'count', 'image',
                      # 'characteristics'
                      )
 
