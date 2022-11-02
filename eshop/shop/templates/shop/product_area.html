@@ -1,7 +1,6 @@
 {% load static %}
 <section class="section-space">
     {% for product in products %}
-              {% if product.category_id == category.id %}
                 <div class="container">
                     <div class="row mb-n4 mb-sm-n10 g-3 g-sm-6">
                         <div class="col-6 col-lg-4 mb-4 mb-sm-8">
@@ -483,7 +482,6 @@
                         </div>
                     </div>
                 </div>
-              {% endif %}
             </section>
             {% endfor %}
             <!--== End Product Area Wrapper ==-->
