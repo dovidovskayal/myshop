@@ -185,8 +185,8 @@ class Order(models.Model):
                                         verbose_name='Дата создания'
                                         )
 
-    def __str__(self):
-        return self.user
+    # def __str__(self):
+    #     return self.user
 
     class Meta:
         db_table = 'shop_orders'
