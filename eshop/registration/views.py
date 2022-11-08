@@ -55,6 +55,6 @@ class ProfileView(LoginRequiredMixin, View):
         return render(request, self.template_name, {'user': user})
 
 
-    def get_orders(self, request: HttpRequest) -> HttpResponse:
-        order = OrderItem.objects.filter(username=request.user)[0]
-        return render(request, self.template_name, {'order': order})
+    def get_orders(self, request):
+        orders = OrderItem.objects.all()
+        return render(request, 'registration/profile.html', {'orders': orders})

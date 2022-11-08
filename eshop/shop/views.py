@@ -19,6 +19,7 @@ def error404(request, exception):
 
 
 def index(request: HttpRequest):
+    # point = Product.objects.filter(point=point)
     error = None
     if request.method == 'POST':
         form = NewsLetterForm(request.POST)

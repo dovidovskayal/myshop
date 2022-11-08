@@ -41,7 +41,7 @@ class ProductAdmin(admin.ModelAdmin):
     fieldsets = (
         ('Основные настройки',
          {
-             'fields': ('title', 'article', 'price', 'category', 'sub_category', 'brand',),
+             'fields': ('title', 'article', 'price', 'category', 'sub_category', 'brand', 'point'),
              # 'description': 'описание'
          }
          ),

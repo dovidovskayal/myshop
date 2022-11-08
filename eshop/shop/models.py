@@ -129,6 +129,8 @@ class Product(models.Model):
                               help_text='Макс. 16 символов')
     is_published = models.BooleanField(default=False,
                                        verbose_name='публикация')
+    point = models.PositiveSmallIntegerField(default=0,
+                                             verbose_name='рейтинг')
     image = models.ImageField(
         upload_to='products',
         verbose_name='картинка продукта',
@@ -185,8 +187,8 @@ class Order(models.Model):
                                         verbose_name='Дата создания'
                                         )
 
-    # def __str__(self):
-    #     return self.user
+    def __str__(self):
+        return 'Order {}'.format(self.user)
 
     class Meta:
         db_table = 'shop_orders'
@@ -210,6 +212,7 @@ class OrderItem(models.Model):
         verbose_name = 'содержание заказа'
         verbose_name_plural = 'содержание заказов'
         ordering = ('order', 'product')
+
 
 
 class NewsLetter(models.Model):
