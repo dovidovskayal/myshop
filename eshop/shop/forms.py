@@ -1,5 +1,5 @@
 from django.forms import ModelForm, EmailInput, TextInput
-from .models import NewsLetter
+from .models import NewsLetter, Comment
 
 
 class NewsLetterForm(ModelForm):
@@ -14,4 +14,35 @@ class NewsLetterForm(ModelForm):
 
                 }
             )
+        }
+
+
+class CommentForm(ModelForm):
+    class Meta:
+        model = Comment
+        fields = ('email', 'name', 'feedback',)
+        widgets = {
+            'feedback': TextInput(
+                attrs={
+                    'class': 'form-control',
+                    'placeholder': 'Enter you feedback'
+
+                }
+            ),
+            'name': TextInput(
+                attrs={
+                    'class': 'form-control',
+                    'type': 'text',
+                    'placeholder':'Full Name'
+
+                }
+            ),
+             'email': EmailInput(
+                attrs={
+                    'class': 'form-control',
+                    'type': 'email',
+                    'placeholder': 'Email Address'
+
+                })
+
         }

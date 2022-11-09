@@ -37,6 +37,7 @@
                                         <h3>Orders</h3>
                                         <div class="myaccount-table table-responsive text-center">
                                             <table class="table table-bordered">
+
                                                 <thead class="thead-light">
                                                     <tr>
                                                         <th>Order</th>
@@ -47,29 +48,16 @@
                                                     </tr>
                                                 </thead>
                                                 <tbody>
+                                                {% for order in orders %}
                                                     <tr>
-                                                        {% for order in orders %}
-                                                        <td>{{ order.pk }}</td>
-                                                        <td>{{ order.order.date_created }}</td>
+                                                        <td>{{ order.id }}</td>
+                                                        <td>{{ order.date_created }}</td>
                                                         <td>Pending</td>
                                                         <td>$3000</td>
                                                         <td><a href="shop-cart.html" class="check-btn sqr-btn ">View</a></td>
-                                                        {% endfor %}
+
                                                     </tr>
-                                                    <tr>
-                                                        <td>2</td>
-                                                        <td>July 22, 2018</td>
-                                                        <td>Approved</td>
-                                                        <td>$200</td>
-                                                        <td><a href="shop-cart.html" class="check-btn sqr-btn ">View</a></td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>3</td>
-                                                        <td>June 12, 2017</td>
-                                                        <td>On Hold</td>
-                                                        <td>$990</td>
-                                                        <td><a href="shop-cart.html" class="check-btn sqr-btn ">View</a></td>
-                                                    </tr>
+                                                {% endfor %}
                                                 </tbody>
                                             </table>
                                         </div>

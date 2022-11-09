@@ -10,8 +10,6 @@ from django.views.generic import CreateView
 from django.forms import PasswordInput, CharField, TextInput, EmailInput
 
 from .forms import SingUpForm
-
-# Create your views here.
 from shop.models import Order, OrderItem
 
 
@@ -52,9 +50,6 @@ class ProfileView(LoginRequiredMixin, View):
 
     def get(self, request: HttpRequest) -> HttpResponse:
         user = User.objects.filter(username=request.user)[0]
-        return render(request, self.template_name, {'user': user})
+        orders = Order.objects.filter(user=request.user)
+        return render(request, self.template_name, {'user': user, 'orders': orders})
 
-
-    def get_orders(self, request):
-        orders = OrderItem.objects.all()
-        return render(request, 'registration/profile.html', {'orders': orders})

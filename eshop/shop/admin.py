@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Category, SubCategory, Product, Comment, Brand, Order, OrderItem, NewsLetter
+from .models import Category, Product, Comment, Brand, Order, OrderItem, NewsLetter
 
 
 # Register your models here.
@@ -17,17 +17,18 @@ class CategoryAdmin(admin.ModelAdmin):
     # search_fields = ('parent', 'id')
     search_help_text = 'Введите имя родительской категории или id категории'
     # inlines = (ProductTabularInline,)
+    prepopulated_fields = {'slug': ('name',)}
 
 
-@admin.register(SubCategory)
-class SubCategoryAdmin(admin.ModelAdmin):
-    empty_value_display = 'N/a'
-    list_display = ('name', 'is_published')
-    list_filter = ('is_published',)
-    # actions = (make_published, make_unpublished)
-    # search_fields = ('parent', 'id')
-    search_help_text = 'Введите имя родительской категории или id категории'
-    # inlines = (ProductTabularInline,)
+# @admin.register(SubCategory)
+# class SubCategoryAdmin(admin.ModelAdmin):
+#     empty_value_display = 'N/a'
+#     list_display = ('name', 'is_published')
+#     list_filter = ('is_published',)
+#     # actions = (make_published, make_unpublished)
+#     # search_fields = ('parent', 'id')
+#     search_help_text = 'Введите имя родительской категории или id категории'
+#     # inlines = (ProductTabularInline,)
 
 
 @admin.register(Product)
@@ -41,12 +42,12 @@ class ProductAdmin(admin.ModelAdmin):
     fieldsets = (
         ('Основные настройки',
          {
-             'fields': ('title', 'article', 'price', 'category', 'sub_category', 'brand', 'point'),
+             'fields': ('title', 'article', 'price', 'category', 'brand', 'point'),
              # 'description': 'описание'
          }
          ),
         ('Дополнительные настройки',
-         {'fields': ('is_published', 'descr', 'count', 'image',
+         {'fields': ('is_published', 'descr', 'count', 'image', 'slug'
                      # 'characteristics'
                      )
 
@@ -54,13 +55,13 @@ class ProductAdmin(admin.ModelAdmin):
          )
     )
     list_editable = ('category',)
-    prepopulated_fields = {'descr': ('title', 'article')}
+    prepopulated_fields = {'slug': ('title', 'article')}
 
 
 @admin.register(Comment)
 class CommentAdmin(admin.ModelAdmin):
     empty_value_display = 'N/a'
-    list_display = ('user', 'product', 'date_created')
+    list_display = ('name', 'product', 'date_created')
     list_filter = ('product', 'date_created')
     list_max_show_all = 10
 
