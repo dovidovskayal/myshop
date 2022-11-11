@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'shop',
     'registration.apps.RegistrationConfig',
     'contact.apps.ContactConfig',
+    'rest_framework',
 ]
 
 MIDDLEWARE = [
